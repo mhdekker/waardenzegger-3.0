@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Waardenzegger 2.0</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <script type="text/javascript" src="/node_modules/circletype/dist/circletype.min.js"></script>
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+
+    <div class="container">
+
+        <div id="timeout" class="modal">
+            <!-- Timeout content -->
+            <div class="modal-content">
+                <h1 class="isCentered curved-text">Ben je er nog? Klik dan hier om terug te keren!</h1>
+                <div class="bottomButtonContainer isCentered bottomButtonGroter bottomToCenter">
+                    <button class="bottomButton close" onclick=""><p class="bottomButtonText bottomButtonTextGroter countDownTimeoutTimer">20</p></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="circle">
+
+            <!-- State 0 -->
+            <div id="state0" class="state">
+                <h1 class="isCentered">Ben je er nog?</h1>
+                <div class="bottomButtonContainer isCentered bottomToCenter">
+                    <button class="bottomButton" onclick="nextButtonPressed()"><p class="bottomButtonText">Ja</p></button>
+                </div>
+            </div>
+
+            <!-- State 1 -->
+            <div id="state1" class="state active">
+                <h1 class="isCentered curved-text"><span class="wide-letter">W</span>elko<span class="wide-letter">m</span> bij de <span class="wide-letter">W</span>aardenzegger. Laat je <span class="wide-letter">w</span>aarden spreken in Digitale Dile<span class="wide-letter">mm</span>a’s!</h1>
+                <button id="startButton" class="isCentered isPulsingAndRotating" onclick="nextButtonPressed()"><img src="assets/images/start.png" width="200px" height="200px"></button>
+            </div>
+
+            <!-- State 2 -->
+            <div id="state2" class="state">
+                <h1 class="isCentered" >Leg jullie hand op de hand voor je. De Waardenzegging gaat nu beginnen!</h1>
+                <img class="isCentered isPulsingAndRotating" src="assets/images/hand.png">
+                <svg width="99%" height="99%" xmlns="http://www.w3.org/2000/svg" class="timer_circle isCentered">
+                    <g>
+                     <circle id="circle" class="circle_animation" r="49.5%" cy="50%" cx="50%" border-sizing="border-box"; stroke-width="15" stroke ='#ffffff' fill="none"/>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- State 3 -->
+            <div id="state3" class="state">
+                <div class="theEyeContainer isCentered">
+                    <img class="theEye isCentered" src="assets/images/oog.png"/>
+                </div>
+            </div>
+
+            <!-- State 4 -->
+            <div id="state4" class="state">
+                <div class="dillemaKeuze isCentered">
+                    <div class="rechteTitel">
+                        <h2>Kies één stelling uit het dilemma.</h2>
+                    </div>
+                    <div class="stellingTitel stellingTitel1"><p>Titel</p></div>
+                    <button class="dillemaKeuze1" onclick="dillemaChosen(0)"><img class="stellingImage" src="/dilemmas/1.png"></button>
+                    <div class="dillemaWoord"> 
+                        <h6>OF</h6>
+                    </div>
+                    <div class="stellingTitel stellingTitel2"><p>Titel</p></div>
+                    <button class="dillemaKeuze2" onclick="dillemaChosen(1)"><img class="stellingImage" src="/dilemmas/1.png"></button>
+                </div>
+            </div>
+
+            <!-- State 5 -->
+            <div id="state5" class="state">
+                <h1 class="isCentered">Vertel de anderen waarom je hiervoor kiest.</h1>
+                <div class="dillemaKeuze-5 isCentered">
+                    <div class="stellingTitel-5"><p>Titel</p></div>
+                    <div class="dillemaKeuze1-5"><img class="stellingImage-5" src="/dilemmas/1.png"></div>
+                </div>
+                <div class="bottomButtonContainer isCentered">
+                    <button onclick="nextButtonPressed()" class="bottomButton"><p class="bottomButtonText">Verder</p></button>
+                </div>
+            </div>
+
+            <!-- State 6 -->
+            <div id="state6" class="state">
+                <h1 class="isCentered"> Zien jullie de schijf met al die waarden? Geef hier een flinke zwieper aan.</h1>
+                <img class="waardenschijf isCentered" src="assets/images/waardenschijf.png">
+            </div>
+
+            <!-- State 7 -->
+            <div id="state7" class="state">
+                <h1 class="isCentered">Wacht tot de waardenschijf gestopt is met draaien. Bekijk welke waarde voor jou ligt.</h1>
+                <img class="waardenschijf2 isCentered" src="assets/images/waardenschijf2.png">
+            </div>
+
+            <!-- State 8 -->
+            <div id="state8" class="state">
+                <h1 class="isCentered">Is de waarde voor jou positief, negatief of past het niet bij deze stelling?</h1>
+                <div class="centerOffsetAndRotation"> 
+                    <div class="dillemaKeuze-5 heightOffSetThumbs">
+                        <div class="stellingTitel-5"><p>Titel</p></div>
+                        <div class="dillemaKeuze1-5"><img class="stellingImage-5" src="/dilemmas/1.png"></div>
+                    </div>
+                </div>
+                <div class="dontRotatePlease isCentered">
+                    <div class="thumbsButtonsContainer thumbsButton0">
+                        <button class="thumbsButtonUp" onclick="toggleButtons(0, 'Up')"><img src="assets/images/up.png" /></button>
+                        <button class="thumbsButtonNiet" onclick="toggleButtons(0, 'Niet')"><img src="assets/images/niet.png" /></button>
+                        <button class="thumbsButtonDown" onclick="toggleButtons(0, 'Down')"><img src="assets/images/down.png" /></button>
+                    </div>
+                    <div class="thumbsButtonsContainer thumbsButton1">
+                        <button class="thumbsButtonUp" onclick="toggleButtons(1, 'Up')"><img src="assets/images/up.png" /></button>
+                        <button class="thumbsButtonNiet" onclick="toggleButtons(1, 'Niet')"><img src="assets/images/niet.png" /></button>
+                        <button class="thumbsButtonDown" onclick="toggleButtons(1, 'Down')"><img src="assets/images/down.png" /></button>
+                    </div>
+                    <div class="thumbsButtonsContainer thumbsButton2">
+                        <button class="thumbsButtonUp" onclick="toggleButtons(2, 'Up')"><img src="assets/images/up.png" /></button>
+                        <button class="thumbsButtonNiet" onclick="toggleButtons(2, 'Niet')"><img src="assets/images/niet.png" /></button>
+                        <button class="thumbsButtonDown" onclick="toggleButtons(2, 'Down')"><img src="assets/images/down.png" /></button>
+                    </div>
+                    <div class="thumbsButtonsContainer thumbsButton3">
+                        <button class="thumbsButtonUp" onclick="toggleButtons(3, 'Up')"><img src="assets/images/up.png" /></button>
+                        <button class="thumbsButtonNiet" onclick="toggleButtons(3, 'Niet')"><img src="assets/images/niet.png" /></button>
+                        <button class="thumbsButtonDown" onclick="toggleButtons(3, 'Down')"><img src="assets/images/down.png" /></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State 9 -->
+            <div id="state9" class="state">
+                <h1 class="isCentered">Kies de stelling die het beste past bij de waarde voor je.</h1>
+                <div class="dontRotatePlease isCentered">
+                    <div class="stellingBijWaarde0">
+                        <div class="stellingBijWaardeContainer">
+                            <div class="stellingBijWaardeTitel stellingBijWaardeTitel1"><p>Titel</p></div>
+                            <button class="stellingBijWaardeTitelKeuze1" onclick="toggleWaardeBijStelling(0, '1')()"><img class="stellingBijWaardeImage" src="/dilemmas/1.png"></button>
+                            <div class="stellingBijWaardeTitelWoord"> 
+                                <h6>OF</h6>
+                            </div>
+                            <div class="stellingBijWaardeTitel stellingBijWaardeTitel2"><p>Titel</p></div>
+                            <button class="stellingBijWaardeTitelKeuze2" onclick="toggleWaardeBijStelling(0, '2')"><img class="stellingBijWaardeImage" src="/dilemmas/1.png"></button>
+                        </div>
+                    </div>
+                    <div class="stellingBijWaarde1">
+                        <div class="stellingBijWaardeContainer ">
+                            <div class="stellingBijWaardeTitel stellingBijWaardeTitel1"><p>Titel</p></div>
+                            <button class="stellingBijWaardeTitelKeuze1" onclick="toggleWaardeBijStelling(1, '1')"><img class="stellingBijWaardeImage" src="/dilemmas/1.png"></button>
+                            <div class="stellingBijWaardeTitelWoord"> 
+                                <h6>OF</h6>
+                            </div>
+                            <div class="stellingBijWaardeTitel stellingBijWaardeTitel2"><p>Titel</p></div>
+                            <button class="stellingBijWaardeTitelKeuze2" onclick="toggleWaardeBijStelling(1, '2')"><img class="stellingBijWaardeImage" src="/dilemmas/1.png"></button>
+                        </div>
+                    </div>
+                    <div class="stellingBijWaarde2">
+                        <div class="stellingBijWaardeContainer ">
+                            <div class="stellingBijWaardeTitel stellingBijWaardeTitel1"><p>Titel</p></div>
+                            <button class="stellingBijWaardeTitelKeuze1" onclick="toggleWaardeBijStelling(2, '1')"><img class="stellingBijWaardeImage" src="/dilemmas/1.png"></button>
+                            <div class="stellingBijWaardeTitelWoord"> 
+                                <h6>OF</h6>
+                            </div>
+                            <div class="stellingBijWaardeTitel stellingBijWaardeTitel2"><p>Titel</p></div>
+                            <button class="stellingBijWaardeTitelKeuze2" onclick="toggleWaardeBijStelling(2, '2')"><img class="stellingBijWaardeImage" src="/dilemmas/1.png"></button>
+                        </div>
+                    </div>
+                    <div class="stellingBijWaarde3">
+                        <div class="stellingBijWaardeContainer ">
+                            <div class="stellingBijWaardeTitel stellingBijWaardeTitel1"><p>Titel</p></div>
+                            <button class="stellingBijWaardeTitelKeuze1" onclick="toggleWaardeBijStelling(3, '1')"><img class="stellingBijWaardeImage" src="/dilemmas/1.png"></button>
+                            <div class="stellingBijWaardeTitelWoord"> 
+                                <h6>OF</h6>
+                            </div>
+                            <div class="stellingBijWaardeTitel stellingBijWaardeTitel2"><p>Titel</p></div>
+                            <button class="stellingBijWaardeTitelKeuze2" onclick="toggleWaardeBijStelling(3, '2')"><img class="stellingBijWaardeImage" src="/dilemmas/1.png"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State 10 -->
+            <div id="state10" class="state">
+                <h1 class="isCentered" >Leg jullie handen weer op de handjes.</h1>
+                <img class="isCentered isPulsingAndRotating" src="assets/images/hand.png">
+                <svg width="99%" height="99%" xmlns="http://www.w3.org/2000/svg" class="timer_circle isCentered">
+                    <g>
+                     <circle id="circle" class="circle_animation" r="49.5%" cy="50%" cx="50%" border-sizing="border-box"; stroke-width="15" stroke ='#ffffff' fill="none"/>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- State 11 -->
+            <div id="state11" class="state">
+                <div class="theEyeContainer isCentered">
+                    <img class="theEye isCentered" src="assets/images/oog.png"/>
+                </div>            
+            </div>
+
+            <!-- State 12 -->
+            <div id="state12" class="state">
+                <h1 class="isCentered"> Vertel iets over jouw waarde en deze stelling.</h1>
+                <div class="dillemaKeuze-5 isCentered">
+                    <div class="stellingTitel-5"><p>Ik moet bij elk evenement zeggen dat ik niet op de foto wil, terwijl de rest dat wel wil.</p></div>
+                    <button class="dillemaKeuze1-5" onclick="dillemaChosen()"><img class="stellingImage-5" src="/dilemmas/1.png"></button>
+                </div>
+                <div class="bottomButtonContainer isCentered">
+                    <button onclick="nextButtonPressed()" class="bottomButton"><p class="bottomButtonText">Verder</p></button>
+                </div>
+            </div>
+
+            <!-- State 13 -->
+            <div id="state13" class="state">
+                <h1 class="isCentered">Welk digitaal dilemma hebben jullie zelf weleens meegemaakt?</h1>
+                <textarea id="nieuweVoeding" class="use-keyboard-input" placeholder="Typ hier het dillema kort in"></textarea>
+                <div class="bottomButtonContainer bottomButtonGroter isCentered">
+                    <button onclick="saveInputToFile()" class="bottomButton"><p class="bottomButtonText">Verstuur</p></button>
+                </div>              
+            </div>
+
+            <!-- State 14 -->
+            <div id="state14" class="state">
+                <h1 class="isCentered">Bedankt dat je je je waarden hebt laten spreken! ✨</h1>
+                <img class="isCentered isPulsingAndRotating" src="assets/images/hand.png">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        const socket = io();
+        let chosenOne;
+        let chosenOne2;
+        let chosenOne3;
+        let dillemaNumber = [];
+        let dillemasText = [];
+        let activeSensors = [0,0,0,0];
+        let thumbsPressed = [0,0,0,0];
+        let waardeBijStelling = [0,0,0,0];
+        let waardeBijStellingKeuzes = [1,1,1,1];
+        let stateUpdateCount = 0;
+
+        var beginState= {
+            name: 'state1'
+        };
+
+        let timeoutTimer;
+
+        function showTimeoutAfterDelay() {
+            var state1Div = document.getElementById('state1');
+
+            // Check if the state1 div is visible
+            if (state1Div && getComputedStyle(state1Div).display !== 'none') {
+                // The div with ID 'state1' is visible, do not set the timeout
+                console.log("Div with ID 'state1' is visible. Timeout will not be set.");
+            } else {
+                // The div with ID 'state1' is not visible, set the timeout
+                timeoutTimer = setTimeout(showTimeout, 160000); // Show timeout after 5 seconds
+                console.log("Div with ID 'state1' is not visible. Setting timeout.");
+            }
+        }
+
+        function showTimeout() {
+            startCountdown123();
+
+            document.querySelectorAll("h1").forEach(el => el.classList.remove('curved-text'));
+
+            const timeout = document.getElementById("timeout");
+            timeout.style.display = "block";
+            
+            const h1Element = timeout.querySelector("h1"); // Select the h1 element inside the timeout element
+            h1Element.classList.add('curved-text'); // Add the class
+
+            var $curvedText = $(".curved-text");
+            updateCurvedText($curvedText,500);
+        }
+
+        function resetTimeoutTimer() {
+            clearTimeout(timeoutTimer);
+            showTimeoutAfterDelay();
+        }
+
+        // Close the timeout when the user clicks on <span> (x)
+        document.querySelector(".close").addEventListener("click", function() {
+            const timeout = document.getElementById("timeout");
+            timeout.style.display = "none";
+            resetTimeoutTimer(); // Reset the timer when the modal is closed
+
+            document.querySelectorAll("h1").forEach(el => el.classList.remove('curved-text'));
+
+            $("h1:visible").addClass('curved-text');
+
+            var $curvedText = $(".curved-text");
+            updateCurvedText($curvedText,500);
+        });
+
+        // Call this function on page load or when appropriate
+        showTimeoutAfterDelay();
+
+        function startCountdown123() {
+            let countdownValue = 20;
+            const countdownElement = document.querySelector('.countDownTimeoutTimer');
+            const originalText = countdownElement.textContent; // Capture the original text
+
+            // Update the countdown every second
+            const interval = setInterval(() => {
+                countdownElement.textContent = countdownValue; // Append the countdown value
+
+                if (countdownValue === 0) {
+                clearInterval(interval); // Stop the countdown
+                countdownElement.textContent = originalText; // Reset to original text
+                // Optionally, add additional actions here when countdown reaches 0
+                const timeout = document.getElementById("timeout");
+                timeout.style.display = "none";
+                resetTimeoutTimer(); // Reset the timer when the modal is closed
+
+                document.querySelectorAll("h1").forEach(el => el.classList.remove('curved-text'));
+                $("h1:visible").addClass('curved-text');
+
+                var $curvedText = $(".curved-text");
+                updateCurvedText($curvedText,500);
+
+                } else {
+                countdownValue--;
+                }
+            }, 1000);
+
+            // If the modal is closed, stop the countdown and reset text
+            const closeButton = document.querySelector('.bottomButton.close');
+            closeButton.onclick = () => {
+                clearInterval(interval);
+                countdownElement.textContent = originalText; // Reset to original text
+                socket.emit('resetTimeoutTimer'); // This remains the same
+            };
+        }
+
+        socket.on('chosenOne', (_chosenOne) => {
+            chosenOne = _chosenOne;
+            switch(_chosenOne) {
+                case 1:
+                    $( ".circle" ).css( "transform", "rotate(180deg)" );
+                    $( ".dontRotatePlease" ).css( "transform", "rotate(-180deg)" );
+                    break;
+                case 0:
+                    $( ".circle" ).css( "transform", "rotate(90deg)" );
+                    $( ".dontRotatePlease" ).css( "transform", "rotate(-90deg)" );
+                    break;
+                case 2:
+                    $( ".circle" ).css( "transform", "rotate(0deg)" );
+                    $( ".dontRotatePlease" ).css( "transform", "rotate(0deg)" );
+                    break;
+                case 3:
+                    $( ".circle" ).css( "transform", "rotate(270deg)" );
+                    $( ".dontRotatePlease" ).css( "transform", "rotate(-270deg)" );
+                    break;
+                default: 
+                $( ".circle" ).css( "transform", "rotate(0)" );
+            }
+        });
+
+        socket.on('chosenOne2', (_chosenOne2) => {
+            chosenOne2 = _chosenOne2;
+            switch(chosenOne2) {
+                case 1:
+                    $( ".circle" ).css( "transform", "rotate(180deg)" );
+                    $( ".dontRotatePlease" ).css( "transform", "rotate(-180deg)" );
+                    break;
+                case 0:
+                    $( ".circle" ).css( "transform", "rotate(90deg)" );
+                    $( ".dontRotatePlease" ).css( "transform", "rotate(-90deg)" );
+                    break;
+                case 2:
+                    $( ".circle" ).css( "transform", "rotate(0deg)" );
+                    $( ".dontRotatePlease" ).css( "transform", "rotate(0deg)" );
+                    break;
+                case 3:
+                    $( ".circle" ).css( "transform", "rotate(270deg)" );
+                    $( ".dontRotatePlease" ).css( "transform", "rotate(-270deg)" );
+                    break;
+                default: 
+                $( ".circle" ).css( "transform", "rotate(0)" );
+            }
+
+            console.log("chosenOne2: " + chosenOne2);
+            console.log(waardeBijStellingKeuzes);
+            console.log(dillemaNumber[0]);
+            console.log(dillemaNumber[waardeBijStellingKeuzes[chosenOne2]-1]);
+            console.log(dillemasText[dillemaNumber[waardeBijStellingKeuzes[chosenOne2]]-1]-1);
+
+            $('.dillemaKeuze-5 img').each(function() {
+                $(this).attr('src', "/dilemmas/" + dillemaNumber[waardeBijStellingKeuzes[chosenOne2]-1] + ".png");
+            });
+            $('.dillemaKeuze-5 p').each(function() {
+                $(this).text(dillemasText[dillemaNumber[waardeBijStellingKeuzes[chosenOne2]-1]-1]);
+            });
+        });
+
+        socket.on('chosenOne3', (_chosenOne3) => {
+            chosenOne3 = _chosenOne3;
+        });
+
+        socket.on('dillemas', (dillemas) => {
+            // Update the UI based on newState
+            dillemaNumber[0] = dillemas[0];
+            dillemaNumber[1] = dillemas[1];
+            
+            $('.dillemaKeuze img').eq(0).attr('src', "/dilemmas/" + dillemaNumber[0] + ".png");
+            $('.dillemaKeuze img').eq(1).attr('src', "/dilemmas/" + dillemaNumber[1] + ".png");
+
+            $('.stellingBijWaardeContainer').each(function(index) {
+                // Assuming dillemaNumber is an array with enough elements
+                // and each stellingBijWaardeContainer contains an img tag
+                $(this).find('img').eq(0).attr('src', "/dilemmas/" + dillemaNumber[0] + ".png");
+                $(this).find('img').eq(1).attr('src', "/dilemmas/" + dillemaNumber[1] + ".png");
+            });
+        });
+
+        socket.on('dillemasText', (_dillemasText) => {
+            dillemasText = _dillemasText;
+
+            $('.dillemaKeuze p').eq(0).text(dillemasText[dillemaNumber[0]-1]);
+            $('.dillemaKeuze p').eq(1).text(dillemasText[dillemaNumber[1]-1]);
+
+
+            $('.stellingBijWaardeContainer').each(function(index) {
+                // Assuming dillemaNumber is an array with enough elements
+                // and each stellingBijWaardeContainer contains an img tag
+                $(this).find('p').eq(0).text(dillemasText[dillemaNumber[0]-1]);
+                $(this).find('p').eq(1).text(dillemasText[dillemaNumber[1]-1]);
+            }); 
+        });
+
+        socket.on('test', (test) => {
+            // Update the UI based on newState
+        });
+
+        socket.on('stateUpdate', (newState) => {
+            stateUpdateCount++;
+            console.log("newState");
+
+            // $('.state.active').fadeOut('5000', function() {
+                //Update the UI based on the new stat
+            updateUI(newState);
+
+            if (newState.name == "state2" || newState.name == "state10") {
+                startCountdown();
+            }
+
+            if (newState.name == "state13") {
+                switch(chosenOne3) {
+                    case 1:
+                        $( ".circle" ).css( "transform", "rotate(180deg)" );
+                        $( ".dontRotatePlease" ).css( "transform", "rotate(-180deg)" );
+                        break;
+                    case 0:
+                        $( ".circle" ).css( "transform", "rotate(90deg)" );
+                        $( ".dontRotatePlease" ).css( "transform", "rotate(-90deg)" );
+                        break;
+                    case 2:
+                        $( ".circle" ).css( "transform", "rotate(0deg)" );
+                        $( ".dontRotatePlease" ).css( "transform", "rotate(0deg)" );
+                        break;
+                    case 3:
+                        $( ".circle" ).css( "transform", "rotate(270deg)" );
+                        $( ".dontRotatePlease" ).css( "transform", "rotate(-270deg)" );
+                        break;
+                    default: 
+                    $( ".circle" ).css( "transform", "rotate(0)" );
+                }
+            }
+
+            if (newState.name == "state13") {
+                const textarea = document.querySelector(".use-keyboard-input");
+                if (textarea) {
+                    textarea.focus();
+                }
+            } else {
+                document.querySelector(".keyboard").classList.add("keyboard--hidden");
+            }
+            // });
+        });
+
+        socket.on('activeSensors', (_activeSensors) => {
+            activeSensors = _activeSensors;
+            updateButtonVisibility(activeSensors);
+        });
+
+        function updateButtonVisibility(activeSensors) {
+            for (let i = 0; i < activeSensors.length; i++) {
+                // Only process elements with value 0
+                if (activeSensors[i] === 0) {
+                    // Construct the class name for the corresponding div
+                    const divClassName = 'thumbsButton' + i;
+                    const divClassName2 = 'stellingBijWaarde' + i;
+
+                    // Find the div by its class name
+                    const div = document.querySelector('.' + divClassName);
+                    if (div) {
+                        // Set the display property to none
+                        div.style.display = 'none';
+                        thumbsPressed[i] = 1;
+                    }
+
+                    const div2 = document.querySelector('.' + divClassName2);
+                    if (div2) {
+                        // Set the display property to none
+                        div2.style.display = 'none';
+                        waardeBijStelling[i] = 1;
+                    }
+                } else if (activeSensors[i] === 1) {
+                    const divClassName = 'thumbsButton' + i;
+                    const divClassName2 = 'stellingBijWaarde' + i;
+
+                    // Find the div by its class name
+                    const div = document.querySelector('.' + divClassName);
+                    const div2 = document.querySelector('.' + divClassName2);
+
+                    if (div) {
+                        // Set the display property to none
+                        div.style.display = 'block';
+                        thumbsPressed[i] = 0;
+                    }
+                    if (div2) {
+                        // Set the display property to none
+                        div2.style.display = 'block';
+                        waardeBijStelling[i] = 0;
+                    }
+                }
+            }
+        }
+
+        // Function to update UI
+        function updateUI(state) {
+            // Hide all states
+            document.querySelectorAll("h1").forEach(el => el.classList.remove('curved-text'));
+            document.querySelectorAll('.state').forEach(el => el.classList.remove('active'));
+            
+            // Show the current state
+            document.getElementById(state.name).classList.add('active');
+            $("#" + state.name).find("h1").addClass('curved-text');
+
+            var $curvedText = $(".curved-text");
+            updateCurvedText($curvedText,500);
+
+            $('.active').fadeIn('500');
+
+            const timeout = document.getElementById("timeout");
+            timeout.style.display = "none";
+            resetTimeoutTimer(); // Reset the timer when the modal is closed
+        }
+
+        function nextButtonPressed() {
+            socket.emit('buttonPress');
+        }
+
+        function dillemaChosen(number) {
+            $('.dillemaKeuze-5 img').each(function() {
+                $(this).attr('src', "/dilemmas/" + dillemaNumber[number] + ".png");
+            });
+            $('.dillemaKeuze-5 p').each(function() {
+                $(this).text(dillemasText[dillemaNumber[number]-1]);
+            });
+
+            socket.emit('buttonPress');
+        }
+
+        function saveInputToFile() {
+            const textareaValue = document.getElementById('nieuweVoeding').value;
+            socket.emit('saveToFile', textareaValue);
+            document.getElementById('nieuweVoeding').value = '';
+            nextButtonPressed();
+        }
+
+        function updateCurvedText($curvedText, radius) {
+            var w = $curvedText.width(),
+                h = $curvedText.height();
+            var text = $curvedText.text();
+            var html = "";
+            Array.from(text).forEach(function (letter) {
+                html += `<span>${letter}</span>`;
+            });
+            $curvedText.html(html);
+            var $letters = $curvedText.find("span");
+
+            $curvedText.css({
+                textAlign: 'center'
+            });
+
+            $letters.css({
+                position: "absolute",
+                height:`${radius}px`,
+                transformOrigin: "bottom center"
+            });
+            
+            var circleLength = 2 * Math.PI * radius;
+            var angleRad = w/(2*radius);
+            if (angleRad == 0) {
+                angleRad = 2.8;
+            };
+            var angle = 2 * angleRad * 180/Math.PI/text.length;
+            angle = 4;
+            
+            $letters.each(function(idx, el) {
+                var letter = $(el).text();
+                var additionalTransform = '';
+                var marginHorizontal = '';
+
+                // Check if the letter is 'm', 'w', 'M', or 'W'
+                if (letter === 'm' || letter === 'w' || letter === 'M' || letter === 'W') {
+                    additionalTransform = ' scaleX(1.3)'; // Scale the letter horizontally
+                    marginHorizontal = '0px'; // Adjust the margin as needed
+                }
+
+                $(el).css({
+                    transform: `translate(-0.25em, ${-radius}px) rotate(${idx * angle - text.length * angle / 2}deg)${additionalTransform}`,
+                    margin: `0 ${marginHorizontal}` // Apply margin only to left and right
+                });
+            });
+        }
+
+        function startCountdown() {
+            var time = 19;
+            var initialOffset = 4059;
+            var i = 0;
+
+            var interval = setInterval(function() {
+                if (i >= time) { 
+                    clearInterval(interval);
+                    i = 0;
+                    $('.circle_animation').css('stroke-dashoffset', initialOffset);
+                    return;
+                }
+
+                var border = initialOffset - ((i + 1) * (initialOffset / time));
+                $('.circle_animation').css('stroke-dashoffset', border);
+
+                i++;
+            }, 1000);
+        }
+
+        function toggleButtons(set, buttonType) {
+            // Select the container of the clicked button set
+            var container = document.querySelector('.thumbsButton' + set);
+
+            // Hide other buttons based on the buttonType
+            container.querySelectorAll('button').forEach(function(btn) {
+                if (!btn.classList.contains('thumbsButton' + buttonType)) {
+                    btn.style.display = 'none';
+                }
+            });
+            thumbsPressed[set] = 1;
+
+            if (thumbsPressed.every(value => value === 1)) {
+                for (let i = 0; i < 5; i++) {
+                    document.querySelectorAll('.thumbsButton' + i + ' button').forEach(function(btn) {
+                        btn.style.display = 'block'; // This resets the display property to default
+                    });
+                }
+                thumbsPressed = [0,0,0,0];
+                nextButtonPressed();
+            }
+        }
+
+        function toggleWaardeBijStelling(set, stellingType) {
+            // Select the specific container of the clicked button
+            var container = document.querySelector('.stellingBijWaarde' + set + ' > .stellingBijWaardeContainer');
+
+            waardeBijStellingKeuzes[set] = parseInt(stellingType);
+            console.log("waardeBijStellingKeuzes: " + waardeBijStellingKeuzes);
+
+            // Hide the word in the middle
+            var middleWord = container.querySelector('.stellingBijWaardeTitelWoord');
+            if (middleWord) {
+                middleWord.style.display = 'none';
+            }
+
+            // Hide the non-selected button and its corresponding title
+            container.querySelectorAll('.stellingBijWaardeTitel, button').forEach(function(element) {
+                if (!element.classList.contains('stellingBijWaardeTitel' + stellingType) && 
+                    !element.classList.contains('stellingBijWaardeTitelKeuze' + stellingType)) {
+                    element.style.display = 'none';
+                }
+            });
+
+            waardeBijStelling[set] = 1;
+
+            if (waardeBijStelling.every(value => value === 1)) {
+                // Reset display of all titles and buttons
+                document.querySelectorAll("[class^='stellingBijWaardeTitel']").forEach(function(element) {
+                    element.style.display = 'block'; // Resets the display property to block
+                });
+
+                // Also reset the middle word
+                if (middleWord) {
+                    middleWord.style.display = 'block'; // Reset the display of the middle word
+                }
+
+                waardeBijStelling = [0,0,0,0];
+                nextButtonPressed();
+                // setLastDillema();
+            }
+        }
+
+        function setLastDillema() {
+            $('.dillemaKeuze-5 img').each(function() {
+                $(this).attr('src', "/dilemmas/" + dillemaNumber[waardeBijStellingKeuzes[choseOne]] + ".png");
+            });//media/martijn/HEMA
+            $('.dillemaKeuze-5 p').each(function() {
+                $(this).text(dillemasText[dillemaNumber[waardeBijStellingKeuzes[choseOne]]-1]);
+            });
+        }
+
+        const Keyboard = {
+            elements: {
+                main: null,
+                keysContainer: null,
+                keys: []
+            },
+
+            eventHandlers: {
+                oninput: null,
+                onclose: null
+            },
+
+            properties: {
+                value: "",
+                capsLock: false
+            },
+
+            init() {
+                // Create main elements
+                this.elements.main = document.createElement("div");
+                this.elements.keysContainer = document.createElement("div");
+
+                // Setup main elements
+                this.elements.main.classList.add("keyboard", "keyboard--hidden");
+                this.elements.keysContainer.classList.add("keyboard__keys");
+                this.elements.keysContainer.appendChild(this._createKeys());
+
+                this.elements.keys = this.elements.keysContainer.querySelectorAll(".keyboard__key");
+
+                // Add to DOM
+                this.elements.main.appendChild(this.elements.keysContainer);
+                // document.body.appendChild(this.elements.main);
+
+                const circleDiv = document.querySelector('.circle');
+                circleDiv.appendChild(this.elements.main);
+
+                // Automatically use keyboard for elements with .use-keyboard-input
+                document.querySelectorAll(".use-keyboard-input").forEach(element => {
+                    element.addEventListener("focus", () => {
+                        this.open(element.value, currentValue => {
+                            element.value = currentValue;
+                        });
+                    });
+                });
+            },
+
+            _createKeys() {
+                const fragment = document.createDocumentFragment();
+                const keyLayout = [
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
+                    "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+                    "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "enter",
+                    "", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?",
+                    "space"
+                ];
+
+                // Creates HTML for an icon
+                const createIconHTML = (icon_name) => {
+                    return `<i class="material-icons">${icon_name}</i>`;
+                };
+
+                keyLayout.forEach(key => {
+                    const keyElement = document.createElement("button");
+
+                    keyElement.addEventListener("touchstart", (e) => {
+                        e.preventDefault(); // Prevents the default touch behavior
+                        keyElement.classList.add("active-touch");
+                    });
+
+                    keyElement.addEventListener("touchend", () => {
+                        keyElement.classList.remove("active-touch");
+                        keyElement.click(); // Trigger click event programmatically
+                    });
+
+                    const insertLineBreak = ["backspace", "p", "enter", "?"].indexOf(key) !== -1;
+
+                    // Add attributes/classes
+                    keyElement.setAttribute("type", "button");
+                    keyElement.classList.add("keyboard__key");
+
+                    switch (key) {
+                        case "backspace":
+                            keyElement.classList.add("keyboard__key--wide");
+                            keyElement.innerHTML = createIconHTML("backspace");
+
+                            keyElement.addEventListener("click", () => {
+                                this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+                                this._triggerEvent("oninput");
+                            });
+                            break;
+
+                        case "caps":
+                            keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
+                            keyElement.innerHTML = createIconHTML("keyboard_capslock");
+
+                            keyElement.addEventListener("click", () => {
+                                this._toggleCapsLock();
+                                keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
+                            });
+
+                            break;
+
+                        case "enter":
+                            keyElement.classList.add("keyboard__key--wide");
+                            keyElement.innerHTML = createIconHTML("keyboard_return");
+
+                            break;
+
+                        case "space":
+                            keyElement.classList.add("keyboard__key--extra-wide");
+                            keyElement.innerHTML = createIconHTML("space_bar");
+
+                            keyElement.addEventListener("click", () => {
+                                this.properties.value += " ";
+                                this._triggerEvent("oninput");
+                            });
+
+                            break;
+
+                        case "done":
+                            keyElement.classList.add("keyboard__key--wide", "keyboard__key--dark");
+                            keyElement.innerHTML = createIconHTML("check_circle");
+                            break;
+
+                        default:
+                            keyElement.textContent = key.toLowerCase();
+
+                            keyElement.addEventListener("click", () => {
+                                this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
+                                this._triggerEvent("oninput");
+                            });
+
+                            break;
+                    }
+
+                    fragment.appendChild(keyElement);
+
+                    if (insertLineBreak) {
+                        fragment.appendChild(document.createElement("br"));
+                    }
+                });
+
+                return fragment;
+            },
+
+            _triggerEvent(handlerName) {
+                if (typeof this.eventHandlers[handlerName] == "function") {
+                    this.eventHandlers[handlerName](this.properties.value);
+                }
+            },
+
+            _toggleCapsLock() {
+                this.properties.capsLock = !this.properties.capsLock;
+
+                for (const key of this.elements.keys) {
+                    if (key.childElementCount === 0) {
+                        key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+                    }
+                }
+            },
+
+            open(initialValue, oninput, onclose) {
+                this.properties.value = initialValue || "";
+                this.eventHandlers.oninput = oninput;
+                this.eventHandlers.onclose = onclose;
+                this.elements.main.classList.remove("keyboard--hidden");
+            },
+
+            close() {
+                this.properties.value = "";
+                this.eventHandlers.oninput = oninput;
+                this.eventHandlers.onclose = onclose;
+                //this.elements.main.classList.add("keyboard--hidden");
+            }
+        };
+
+        window.addEventListener("DOMContentLoaded", function () {
+            Keyboard.init();
+        });
+        </script>
+</body>
+</html>

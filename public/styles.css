@@ -1,0 +1,723 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  letter-spacing: 0.12em;
+}
+
+@font-face {
+  font-family: vt323;
+  src: url(/assets/VT323-Regular.ttf);
+}
+
+body {
+  font-family: "vt323";
+  height: 100vh;
+  margin: 0;
+  text-align: center;
+  overflow: hidden; /* Hide scrollbars */
+
+
+  /* The image used */
+  background-image: url("/assets/images/achtergrond.png");
+
+
+  /* Center and scale the image nicely */
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Modal styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-image: url("/assets/images/achtergrond.png");
+
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  background-color: rgba(255,255,255,0.4);
+}
+
+.modal-content {
+  background-color: rgba(255,255,255,0.4);
+  width: 100%;
+  height: 100%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.state {
+  display: none;
+}
+
+.state.active {
+  display: block;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100vh;
+  height: 100%;
+}
+
+.circle {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 50%;
+  transform: rotate(0);
+}
+
+h1 {
+  position: relative;
+  margin: 0;
+  white-space: nowrap;
+  display: inline-block;
+  color: white;
+  font-size: 75px;
+  letter-spacing: .3rem;
+}
+
+h2 {
+  position: relative;
+  display: inline-block;
+  color: white;
+  font-size: 50px;
+}
+
+h6 {
+  position: relative;
+  margin: 0;
+  white-space: nowrap;
+  display: inline-block;
+  color: white;
+  font-size: 40px;
+}
+
+p {
+  color: #E5087E;
+  display: inline-block;
+  font-size: 25px;
+  font-family: "vt323";
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  background-color: inherit;
+}
+
+.isVCentered {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.isCentered {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#startButton {
+  width: 275px;
+  height: 275px;
+}
+
+.curved-text{
+  margin:0 auto;
+  position: absolute;
+  animation: spin 20s linear infinite;
+}
+
+.curved-text span{
+  min-width:0.5em;
+  text-align: center;
+  padding:0;
+  margin:0;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(360deg);
+  }
+  100% {
+      transform: rotate(0);
+  }
+}
+
+.isPulsing {
+  animation-name: pulse;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+	0% {
+		scale: 1;
+	}
+
+	70% {
+		scale: 0.9;
+	}
+
+	100% {
+		scale: 1;
+	}
+}
+
+.isRotating {
+  animation: continuousRotate 20s linear infinite;
+}
+
+@keyframes continuousRotate {
+  0% {
+      transform: translate(-50%, -50%) rotate(360deg) scale(0.8);
+  }
+  100% {
+      transform: translate(-50%, -50%) rotate(0) scale(0.8);
+  }
+}
+
+.isPulsingAndRotating {
+  animation: pulseAndRotate 20s linear infinite;
+}
+
+@keyframes pulseAndRotate {
+  0% {
+      transform: translate(-50%, -50%) rotate(360deg) scale(0.90);
+  }
+  10% {
+      transform: translate(-50%, -50%) rotate(324deg) scale(1.1);
+  }
+  20% {
+    transform: translate(-50%, -50%) rotate(288deg) scale(0.90);
+  }
+  30% {
+    transform: translate(-50%, -50%) rotate(252deg) scale(1.1);
+  }
+  40% {
+    transform: translate(-50%, -50%) rotate(216deg) scale(0.90);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
+  }
+  60% {
+    transform: translate(-50%, -50%) rotate(144deg) scale(0.90);
+  }
+  70% {
+    transform: translate(-50%, -50%) rotate(108deg) scale(1.1);
+  }
+  80% {
+    transform: translate(-50%, -50%) rotate(72deg) scale(0.90);
+  }
+  90% {
+    transform: translate(-50%, -50%) rotate(36deg) scale(1.1);
+  }
+  100% {
+      transform: translate(-50%, -50%) rotate(0) scale(0.90);
+  }
+}
+
+.dillemaKeuze {
+  display: grid;
+  grid-template-columns: 350px 100px 350px;
+  grid-template-rows: 150px 150px 300px;
+}
+
+/* .dillemaKeuze2 {
+  display: grid;
+  grid-template-columns: 350px 100px 350px;
+  grid-template-rows: 0px 150px 300px;
+} */
+
+.dillemaKeuze1 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.dillemaKeuze2 {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+.rechteTitel {
+  grid-column-start: 1;
+  grid-column-end: span 3;
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+  display: inline-grid;
+}
+
+.dillemaWoord {
+  grid-column: 2;
+  grid-row: 3;
+  align-self: center;
+  justify-self: center;
+}
+
+.stellingTitel {
+  background: white;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-radius: 20px;
+  width: 100%;
+  z-index: 2;
+  padding: 12px;
+}
+
+.stellingTitel1 {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+  justify-self: center;
+}
+
+.stellingTitel2 {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: end;
+  justify-self: center;
+}
+
+.stellingImage {
+  width: 100%;
+  transform: translateY(-80px);
+}
+
+.bottomButtonContainer {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  background: #C87CFF;
+  transform: translate(-50px, 280px);
+}
+
+.bottomToCenter {
+  transform: translate(-50px,-50px);
+}
+
+.bottomButton {
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+  color: white;
+  margin: auto;
+  border-width: 5px;
+  border-color: white;
+  border-style: solid;
+}
+
+.bottomButtonGroter {
+  width: 120px;
+  height: 120px;
+  border-radius: 120px;
+}
+
+.bottomButtonText {
+  color: white;
+  display: inline-block;
+  font-size: 23px;
+  font-family: "vt323";
+}
+
+.bottomButtonTextGroter {
+  font-size: 50px;
+}
+
+.stellingTitel-5 {
+  background: white;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-radius: 20px;
+  width: 100%;
+  z-index: 2;
+  padding: 12px;
+  grid-column: 1;
+  grid-row: 1;
+  align-self: end;
+  justify-self: center;
+}
+
+.dillemaKeuze-5 {
+  display: grid;
+  grid-template-columns: 350px;
+  grid-template-rows: 150px 300px;
+}
+
+.dillemaKeuze1-5 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.stellingImage-5 {
+  width: 100%;
+  transform: translateY(-80px);
+}
+
+.waardenschijf {
+  animation-name: rotateImage;
+  animation-duration: 10s; /* Adjust as needed */
+  animation-timing-function: ease-in;
+}
+
+.waardenschijf2 {
+  animation-name: rotateImage;
+  animation-duration: 7s; /* Adjust as needed */
+  animation-timing-function: ease-out;
+}
+
+@keyframes rotateImage {
+  0% {
+    transform: translate(-50%, -50%) rotate(1000deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+}
+
+.isRotating {
+  animation: continuousRotate 20s linear infinite;
+}
+
+@keyframes continuousRotate {
+  from {
+      transform: translate(-50%, -50%) rotate(360deg) scale(0.8);
+  }
+  to {
+      transform: translate(-50%, -50%) rotate(0) scale(0.8);
+  }
+}
+
+.theEyeContainer {
+  animation: chooseTheChosenOne 6.5s linear;
+}
+
+.theEye {
+  transform: translate(-127.5px,300px) rotate(90deg);
+}
+
+@keyframes chooseTheChosenOne {
+  from {
+    transform: rotate(-1080deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+}
+
+.thumbsButtonContainer {
+}
+
+.thumbsButton0 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-60px) rotate(90deg);
+}
+
+.thumbsButton1 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(60px) rotate(180deg);
+}
+
+.thumbsButton2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-60px) rotate(0deg);
+}
+
+.thumbsButton3 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(60px) rotate(270deg);
+}
+
+.thumbsButtonUp {
+  position: absolute;
+  transform: translate(-100px, 260px);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;    
+  align-items: center;
+}
+
+.thumbsButtonNiet {
+  position: absolute;
+  transform: translate(0, 270px);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thumbsButtonDown {
+  position: absolute;
+  transform: translate(100px, 280px);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dontRotatePlease {
+  transform: rotate(0deg);
+}
+
+.centerOffsetAndRotation {
+  margin: 0;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  animation: continuousRotateAndOffset 20s linear infinite;
+}
+
+@keyframes continuousRotateAndOffset {
+  0% {
+      transform: translate(-50%, -50%) translateY(-80px) rotate(360deg);
+  }
+  100% {
+      transform: translate(-50%, -50%) translateY(-80px) rotate(0);
+  }
+}
+
+.heightOffSetThumbs {
+  transform: translateY(-50px) scale(0.8);
+}
+
+.stellingBijWaarde0 {
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.stellingBijWaarde1 {
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.stellingBijWaarde2 {
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.stellingBijWaarde3 {
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(270deg);
+}
+
+.stellingBijWaardeContainer {
+  display: grid;
+  grid-template-columns: 150px 20px 150px;
+  grid-template-rows: 50px 50px 120px;
+  transform: translateY(280px) scale(1)
+}
+
+/* .dillemaKeuze2 {
+  display: grid;
+  grid-template-columns: 350px 100px 350px;
+  grid-template-rows: 0px 150px 300px;
+} */
+
+.stellingBijWaardeTitelKeuze1 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.stellingBijWaardeTitelKeuze2 {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+.stellingBijWaardeTitelWoord {
+  grid-column: 2;
+  grid-row: 3;
+  align-self: center;
+  justify-self: center;
+}
+
+.stellingBijWaardeTitelWoord > h6 {
+  font-size: 15px;
+}
+
+.stellingBijWaardeTitel {
+  background: white;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 20px;
+  width: 100%;
+  z-index: 2;
+  padding: 12px;
+}
+
+.stellingBijWaardeTitel > p {
+  font-size: 15px;
+}
+
+.stellingBijWaardeTitel1 {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+  justify-self: center;
+}
+
+.stellingBijWaardeTitel2 {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: end;
+  justify-self: center;
+}
+
+.stellingBijWaardeImage {
+  width: 100%;
+  transform: translateY(-30px);
+}
+
+svg.timer_circle {
+  z-index: 2;
+  /* transform: rotate(-90deg);		 	 */
+}
+
+.circle_animation {
+  stroke-dasharray: 4059; /* this value is the pixel circumference of the circle */
+  stroke-dashoffset: 4059;
+  transition: all 1s linear;
+  stroke: #ffffff;
+  box-sizing: border-box;
+}
+
+.wide-letter {
+  display: inline-block; /* Allows transform to be applied */
+  letter-spacing: 10px;
+}
+
+/* Keyboard -------- */
+textarea, textarea:focus-visible {
+  position: absolute;
+  transform: translate(-300px, 300px);
+  width: 600px;
+  height: 150px;
+  border-style: none; 
+  border-color: Transparent; 
+  overflow: auto;    
+  resize: none;
+  box-shadow: none;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.keyboard {
+  position: fixed;
+  left: 0;
+  bottom: 300px;
+  width: 100%;
+  padding: 5px 0;
+  /* background: #312783; */
+  user-select: none;
+  transition: bottom 0.4s;
+}
+
+.keyboard--hidden {
+  bottom: -100%;
+}
+
+.keyboard__keys {
+  text-align: center;
+}
+
+.keyboard__key {
+  height: 45px;
+  width: 4.5%;
+  max-width: 90px;
+  margin: 3px;
+  border-radius: 4px;
+  border: none;
+  background: #C87CFF;
+  color: #ffffff;
+  font-size: 1.05rem;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.keyboard__key:active {
+  background: #E5087E
+}
+
+.keyboard__key--wide {
+  width: 12%;
+}
+
+.keyboard__key--extra-wide {
+  width: 36%;
+  max-width: 500px;
+}
+
+.keyboard__key--activatable::after {
+  content: '';
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+}
+
+.keyboard__key--active::after {
+  background: #C87CFF;
+}
+
+.keyboard__key.active-touch {
+  background: #E5087E; /* Or your desired :active state color */
+}
+
+.keyboard__key--dark {
+  background: rgba(0, 0, 0, 0.25);
+}
