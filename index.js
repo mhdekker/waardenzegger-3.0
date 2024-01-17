@@ -13,7 +13,7 @@ const io = socketIo(server);
 
 let stateTimeout; 
 
-let activeSensors = [0, 0, 0, 0];
+let activeSensors = [1, 1, 1, 1];
 let touchCheckTimeout = null;
 let chosenOne;
 let chosenOne2;
@@ -55,7 +55,7 @@ function formatTextToArray(filePath) {
     return text.split('\n').map(line => line.replace(/^\d+\.\s*/, '').trim());
 }
 
-const sentencesArray = formatTextToArray('//media/martijn/HEMA_8GB/dilemmas/dillemas.txt');
+const sentencesArray = formatTextToArray('//media/martijn/HEMA_8GB/dilemmas/dilemmas.txt');
 console.log(sentencesArray); // This will output the array of sentences
 
 function pickNewDilemmas() {
@@ -267,7 +267,7 @@ function getNextStateName(currentStateName) {
 }
 
 function startTimerTouch() {
-    activeSensors = [0,0,0,0];
+    activeSensors = [1,1,1,1];
 
     touchCheckTimeout = setTimeout(() => {
         // After 15 seconds, decide the next state based on sensors touched
