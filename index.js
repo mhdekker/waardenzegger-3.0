@@ -127,7 +127,7 @@ let state = {
             color: 'blue',
             text: 'Draai aan de schijf',
             nextAction: 'timer',       // Wait for a specified time before moving to the next state
-            timerDuration: 10000        // 5 seconds
+            timerDuration: 7000        // 5 seconds
         },
         state7: {
             //Bekijk de waardenschijf
@@ -135,7 +135,7 @@ let state = {
             color: 'blue',
             text: 'Bekijk de waarde voor je',
             nextAction: 'timer',       // Wait for a specified time before moving to the next state
-            timerDuration: 13000        // 5 seconds
+            timerDuration: 10000        // 5 seconds
         },
         state8: {
             //Is de gekozen waarde met het dillema positief of negatief?
@@ -311,7 +311,7 @@ function startTimerTouch() {
             default: 
         }
         // Call the function once to set the initial dilemmas
-    }, 16000);  // 15 seconds
+    }, 13000);  // 15 seconds
 }
 
 function startTimerTouch2() {
@@ -366,7 +366,7 @@ function startTimerTouch2() {
             default: 
         }
         // Call the function once to set the initial dilemmas
-    }, 16000);  // 15 seconds
+    }, 13000);  // 15 seconds
 }
 
 function chooseRandomTouchedSensor(sensors) {

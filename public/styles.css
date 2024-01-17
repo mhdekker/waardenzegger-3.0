@@ -386,7 +386,7 @@ button {
 
 .waardenschijf {
   animation-name: rotateImage;
-  animation-duration: 10s; /* Adjust as needed */
+  animation-duration: 7s; /* Adjust as needed */
   animation-timing-function: ease-in;
 }
 
