@@ -13,7 +13,7 @@ const io = socketIo(server);
 
 let stateTimeout; 
 
-let activeSensors = [1, 1, 1, 1];
+let activeSensors = [0, 0, 0, 0];
 let touchCheckTimeout = null;
 let chosenOne;
 let chosenOne2;
@@ -23,7 +23,6 @@ let dillemaOption2;
 
 app.use(express.static('public'));
 app.use('/dilemmas', express.static('/media/martijn/HEMA_8GB/dilemmas'));
-
 
 function runPythonScript() {
     const pythonProcess = spawn('sudo', ['python3', '/home/martijn/waardenzegger/handler.py']);
@@ -267,7 +266,7 @@ function getNextStateName(currentStateName) {
 }
 
 function startTimerTouch() {
-    activeSensors = [1,1,1,1];
+    activeSensors = [0,0,0,0];
 
     touchCheckTimeout = setTimeout(() => {
         // After 15 seconds, decide the next state based on sensors touched
@@ -422,7 +421,7 @@ io.on('connection', (socket) => {
 
     socket.on('saveToFile', (data) => {
         const text = data + '\n'; // Append a newline character for the next line
-        fs.appendFile('/media/martijn/HEMA_8GB/nieuweDillemas.txt', text, (err) => {
+        fs.appendFile('/media/martijn/HEMA_8GB/nieuweDilemmas.txt', text, (err) => {
             if (err) {
                 console.error(err);
             } else {
